@@ -76,7 +76,8 @@ sequenceDiagram
 ## Result
 
 <!-- Fill only with verified results from the runner logs and the room's own checks. Do not estimate. -->
-- First live bridge call from the browser room, end to end: _not yet confirmed; to be filled after a verified run_
+- First live bridge round trip (request, runner poll, answer back to the browser): verified once, about 34 seconds end to end. The audit log recorded the tool event.
+- One tool did not work in that run: the GitHub pull request tool answered "not connected", because the runner does not have GitHub wired up yet. The bridge carried the answer; the tool itself is not yet live.
 - Tool calls by tool and agent, by week: _to be counted from the audit log_
 - Requests that expired unanswered: _to be counted from the queue, not estimated_
 
