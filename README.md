@@ -1,6 +1,6 @@
 # Engineering playbook
 
-How one small product team runs its codebase: how work is scoped, gated, reviewed, released, and handed between people and AI agents. This repo is the written policy, the checklists behind it, and four case studies that show the reasoning.
+How one small product team runs its codebase: how work is scoped, gated, reviewed, released, and handed between people and AI agents. This repo is the written policy, the checklists behind it, and five case studies that show the reasoning.
 
 It is not a product. It contains no application code.
 
@@ -20,6 +20,7 @@ This is a builder's log. I set up this process while learning it, working with A
 | [Case study 2: Proof gate for handoffs](case-studies/02-proof-gate.md) | You want to see how "done" is checked before work reaches a decision maker. |
 | [Case study 3: Risk-tiered auto-merge](case-studies/03-risk-tiered-merge.md) | You want to see how low-risk changes merge without a human and high-risk changes do not. |
 | [Case study 4: Meeting room agents and a read-only bridge](case-studies/04-meeting-room-agents-and-bridge.md) | You want to see how agents get live data safely, and how a deploy step is narrowed so agents can run it. |
+| [Case study 5: Agent workflow skills, CI spend, and parallel work](case-studies/05-agent-workflow-skills-and-cost.md) | You want to see how agent skills were tied to existing gates, how CI spend was cut, and how agents got separate stacks. |
 | [Technical capabilities](technical-capabilities.md) | You want a list of what was built, with diagrams. |
 
 ## How the pieces fit
