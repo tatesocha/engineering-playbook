@@ -195,7 +195,7 @@ footer { margin-top: 24px; color: var(--muted); font: 12px var(--mono); overflow
         <p class="meta"><span class="tag g">planned</span> tracked item</p>
         <ul>
           <li>Triage routine files one tracked item per cluster (read-only)</li>
-          <li>Fan-out: one remote cloud session per item, branch <code>claude/error-fix-ON-id</code>, draft PR. Cap of 3 at once</li>
+          <li>Fan-out: one remote cloud session per item, branch <code>claude/error-fix-&lt;item-id&gt;</code>, draft PR. Cap of 3 at once</li>
           <li>Serial only: migrations, edge and web deploys, anything that writes production. human go-ahead first</li>
           <li>Owner: one agent per fix, from reproduction through merge. A human approves dispatch</li>
           <li>Rollback path: revert PR under the same risk rule, or the previous web deploy or edge-function version</li>
