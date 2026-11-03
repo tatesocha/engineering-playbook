@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Agent workflow value chain</title>
+<style>
+:root {
+  /* Layout: one vertical chain, stages top to bottom, with the reproof loop drawn on the right. */
+  --bg: #F5EFDF;
+  --fg: #2E3A22;
+  --muted: #5C6252;
+  --line: #2F4023;
+  --built: #2F4023;
+  --built-fg: #F5EFDF;
+  --gap-bg: #FBF7EC;
+  --gap-line: #C25E7E;
+  --rose: #C25E7E;
+  --card: #FBF7EC;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --sans: "Archivo", system-ui, -apple-system, sans-serif;
+  --serif: "Fraunces", Georgia, serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1F2A18; --fg: #F5EFDF; --muted: #B9BEA9; --line: #A9C27A;
+    --built: #A9C27A; --built-fg: #1F2A18; --gap-bg: #2A3620; --gap-line: #E08AA6;
+    --rose: #E08AA6; --card: #2A3620; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1F2A18; --fg: #F5EFDF; --muted: #B9BEA9; --line: #A9C27A;
+  --built: #A9C27A; --built-fg: #1F2A18; --gap-bg: #2A3620; --gap-line: #E08AA6;
+  --rose: #E08AA6; --card: #2A3620; color-scheme: dark;
+}
+html, body { height: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 15px/1.5 var(--sans);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 24px 48px;
+}
+main { max-width: 760px; margin: 0 auto; }
+h1 { font: 600 28px/1.2 var(--serif); margin: 0 0 6px; text-wrap: balance; }
+.lede { color: var(--muted); margin: 0 0 20px; max-width: 62ch; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 16px; font: 12px var(--mono); color: var(--muted); margin-bottom: 24px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 14px; height: 14px; border-radius: 4px; display: inline-block; }
+.sw.built { background: var(--built); }
+.sw.gap { background: var(--gap-bg); border: 2px dashed var(--gap-line); }
+.sw.loop { border: 2px solid var(--rose); background: transparent; }
+
+ol.chain { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+ol.chain > li { position: relative; display: grid; grid-template-columns: 44px 1fr; gap: 14px; padding-bottom: 14px; }
+ol.chain > li:not(:last-child)::before {
+  content: ""; position: absolute; left: 21px; top: 44px; bottom: 0; width: 2px; background: var(--line); opacity: .35;
+}
+.node {
+  width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--built); color: var(--built-fg); font: 600 15px var(--mono); z-index: 1;
+}
+.gap .node { background: var(--gap-bg); color: var(--gap-line); border: 2px dashed var(--gap-line); }
+.card {
+  background: var(--card); border: 1px solid color-mix(in srgb, var(--line) 22%, transparent);
+  border-radius: 14px; padding: 12px 14px; min-width: 0;
+}
+.gap .card { border: 2px dashed var(--gap-line); background: var(--gap-bg); }
+.card h2 { font: 600 17px/1.3 var(--serif); margin: 0 0 4px; text-wrap: balance; }
+.meta { font: 12px var(--mono); color: var(--muted); margin: 0 0 6px; overflow-wrap: anywhere; }
+.card ul { margin: 6px 0 0; padding-left: 18px; }
+.card li { margin: 2px 0; }
+.tag { display: inline-block; font: 11px var(--mono); padding: 2px 8px; border-radius: 999px; margin-right: 4px;
+  background: color-mix(in srgb, var(--line) 14%, transparent); }
+.gap .tag.g { color: var(--gap-line); background: transparent; border: 1px dashed var(--gap-line); }
+
+.loop-note {
+  margin: 8px 0 0; padding: 14px; border: 2px solid var(--rose); border-radius: 14px; background: transparent;
+}
+.loop-note h2 { font: 600 17px var(--serif); margin: 0 0 4px; color: var(--rose); }
+.loop-note p { margin: 0; color: var(--fg); }
+.rollback { margin-top: 20px; }
+.rollback h2 { font: 600 17px var(--serif); margin: 0 0 8px; }
+.rb { display: grid; gap: 8px; grid-template-columns: 1fr; }
+.rb div { border: 1px solid color-mix(in srgb, var(--line) 25%, transparent); border-radius: 12px; padding: 10px 12px; background: var(--card); }
+.rb b { font-weight: 600; }
+footer { margin-top: 24px; color: var(--muted); font: 12px var(--mono); overflow-wrap: anywhere; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Agent workflow, code to reproof</h1>
+  <p class="lede">Every step from code to a bug recreated after its fix. Solid steps run today. Dashed steps are planned and not yet built.</p>
+
+  <div class="legend" aria-label="Legend">
+    <span><i class="sw built"></i> built and running</span>
+    <span><i class="sw gap"></i> planned, not built</span>
+    <span><i class="sw loop"></i> reproof loop</span>
+  </div>
+
+  <ol class="chain">
+    <li>
+      <div class="node" aria-hidden="true">1</div>
+      <div class="card">
+        <h2>Code inception</h2>
+        <p class="meta">Tracked item, owner, premise checked</p>
+        <ul>
+          <li>Premise verified against code or data before routing</li>
+          <li>One named owner per item</li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <div class="node" aria-hidden="true">2</div>
+      <div class="card">
+        <h2>Build and open the PR</h2>
+        <p class="meta">Draft PR, tracked ID in title, type line</p>
+        <ul>
+          <li>Labels set from the PR body. Risk tier set by a workflow</li>
+          <li>Repro shown FAILING before a fix, for bug work (device-bug checklist)</li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <div class="node" aria-hidden="true">3</div>
+      <div class="card">
+        <h2>Verify</h2>
+        <p class="meta">Typecheck, guards, required CI checks</p>
+        <ul>
+          <li>Typecheck and every guard script</li>
+          <li>Copilot automatic review. Review threads answered and resolved</li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <div class="node" aria-hidden="true">4</div>
+      <div class="card">
+        <h2>Validate</h2>
+        <p class="meta">Walk it, compare it to the design, record what cannot be simmed</p>
+        <ul>
+          <li>Simulator walk. Design parity against the approved frame</li>
+          <li>Anything the simulator cannot test is <b>CANNOT BE SIMMED</b> and goes to a device</li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <div class="node" aria-hidden="true">5</div>
+      <div class="card">
+        <h2>Merge by risk</h2>
+        <p class="meta">Risk tier workflow and the sweep</p>
+        <ul>
+          <li><span class="tag">risk: low</span> auto-merge, once required checks pass</li>
+          <li><span class="tag">risk: medium</span> agent merges after the sweep, one line reported</li>
+          <li><span class="tag">risk: high</span> a human decides</li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <div class="node" aria-hidden="true">6</div>
+      <div class="card">
+        <h2>Ship and watch</h2>
+        <p class="meta">EAS build, TestFlight, web deploy, PostHog and Sentry</p>
+        <ul>
+          <li>Production writes need a human go-ahead. No agent deploys on its own</li>
+          <li>Weekly low-risk revert rate in <code>weekly revert-rate job</code></li>
+        </ul>
+      </div>
+    </li>
+    <li class="gap">
+      <div class="node" aria-hidden="true">7</div>
+      <div class="card">
+        <h2>Error capture</h2>
+        <p class="meta"><span class="tag">built</span> app_error in PostHog, Sentry event, ErrorBoundary</p>
+        <ul>
+          <li>Name and screen only. No message, props or user id</li>
+        </ul>
+      </div>
+    </li>
+    <li class="gap">
+      <div class="node" aria-hidden="true">8</div>
+      <div class="card">
+        <h2>Error intake into the tracker</h2>
+        <p class="meta"><span class="tag g">planned</span> tracked item</p>
+        <ul>
+          <li>Target: one tracked item per error cluster, filed by a scheduled routine</li>
+        </ul>
+      </div>
+    </li>
+    <li class="gap">
+      <div class="node" aria-hidden="true">9</div>
+      <div class="card">
+        <h2>Real-time fix, named owner</h2>
+        <p class="meta"><span class="tag g">planned</span> tracked item</p>
+        <ul>
+          <li>Triage routine files one tracked item per cluster (read-only)</li>
+          <li>Fan-out: one remote cloud session per item, branch <code>claude/error-fix-ON-id</code>, draft PR. Cap of 3 at once</li>
+          <li>Serial only: migrations, edge and web deploys, anything that writes production. human go-ahead first</li>
+          <li>Owner: one agent per fix, from reproduction through merge. A human approves dispatch</li>
+          <li>Rollback path: revert PR under the same risk rule, or the previous web deploy or edge-function version</li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <div class="node" aria-hidden="true">10</div>
+      <div class="card">
+        <h2>Reproof</h2>
+        <p class="meta">Recreate the bug on the fixed build and show it gone</p>
+        <ul>
+          <li>Same repro as step 9, now PASSING on the fixed build</li>
+          <li>Done only after both the failing and the passing proof are linked</li>
+        </ul>
+      </div>
+    </li>
+  </ol>
+
+  <div class="loop-note">
+    <h2>Reproof loop</h2>
+    <p>A fix that is merged but not reproofed is not done. Step 10 sends the item back to step 5 if the bug is still there, and into step 9 with the new evidence. The loop closes only when the bug is recreated on the fixed build and does not occur.</p>
+  </div>
+
+  <section class="rollback">
+    <h2>Rollback paths</h2>
+    <div class="rb">
+      <div><b>App build:</b> a revert PR, with a "Reverts" line naming the PR in the body, merged under the same risk rule. Counted by a weekly revert-rate job.</div>
+      <div><b>Web:</b> The web deploy script redeploys the previous commit when a probe fails.</div>
+      <div><b>Edge function:</b> redeploy the previous version. Production writes need a human go-ahead.</div>
+    </div>
+  </section>
+
+  <footer>Public copy. Read 2026-11-03.</footer>
+</main>
+</body>
+</html>
