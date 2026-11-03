@@ -151,8 +151,8 @@ footer { margin-top: 24px; color: var(--muted); font: 12px var(--mono); overflow
         <h2>Merge by risk</h2>
         <p class="meta">Risk tier workflow and the sweep</p>
         <ul>
-          <li><span class="tag">risk: low</span> auto-merge, once required checks pass</li>
-          <li><span class="tag">risk: medium</span> agent merges after the sweep, one line reported</li>
+          <li><span class="tag">risk: low</span> auto-merge, once required checks pass. Docs, scripts and tests</li>
+          <li><span class="tag">risk: medium</span> app code. An agent merges after the sweep, one line reported. Tier in review, not yet live</li>
           <li><span class="tag">risk: high</span> a human decides</li>
         </ul>
       </div>
@@ -168,7 +168,7 @@ footer { margin-top: 24px; color: var(--muted); font: 12px var(--mono); overflow
         </ul>
       </div>
     </li>
-    <li class="gap">
+    <li>
       <div class="node" aria-hidden="true">7</div>
       <div class="card">
         <h2>Error capture</h2>
@@ -217,7 +217,7 @@ footer { margin-top: 24px; color: var(--muted); font: 12px var(--mono); overflow
 
   <div class="loop-note">
     <h2>Reproof loop</h2>
-    <p>A fix that is merged but not reproofed is not done. Step 10 sends the item back to step 5 if the bug is still there, and into step 9 with the new evidence. The loop closes only when the bug is recreated on the fixed build and does not occur.</p>
+    <p>A fix that is merged but not reproofed is not done. If the bug is still there, step 10 sends the item back to step 9 (fix) with the new evidence. It never goes to step 5 (merge) while the repro still fails. The loop closes only when the bug is recreated on the fixed build and does not occur.</p>
   </div>
 
   <section class="rollback">
