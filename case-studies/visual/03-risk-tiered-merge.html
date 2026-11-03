@@ -1,0 +1,87 @@
+<!doctype html>
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Risk-tiered auto-merge</title>
+<style>
+/* Layout: one column, a loud headline, then short Axios-style blocks with bold lead-ins. */
+:root {
+  --bg: #F6F2E8;
+  --fg: #1F2A1A;
+  --muted: #5E6655;
+  --rule: #D9D2BF;
+  --accent: #2F5D3A;
+  --warn: #9A4A2E;
+  --card: #FFFDF7;
+  --display: "Fraunces", Georgia, serif;
+  --body: "Archivo", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1A2116; --fg: #EDE8DA; --muted: #A9B09A; --rule: #3A4632;
+    --accent: #9CC88A; --warn: #E09A76; --card: #222B1C; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1A2116; --fg: #EDE8DA; --muted: #A9B09A; --rule: #3A4632;
+  --accent: #9CC88A; --warn: #E09A76; --card: #222B1C; color-scheme: dark;
+}
+html, body { margin: 0; }
+body {
+  background: var(--bg); color: var(--fg);
+  font: 16px/1.5 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 24px 48px;
+  max-width: 680px; margin: 0 auto;
+}
+.kicker { font: 600 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+h1 { font: 700 40px/1.05 var(--display); margin: 12px 0 10px; text-wrap: balance; }
+.dek { font-size: 18px; color: var(--muted); margin: 0 0 24px; }
+h2 { font: 600 22px/1.2 var(--display); margin: 32px 0 8px; text-wrap: balance; }
+p { margin: 0 0 12px; }
+.lead { font-weight: 700; color: var(--fg); }
+ul { margin: 0 0 12px; padding-left: 20px; }
+li { margin-bottom: 6px; }
+.why {
+  background: var(--card); border-left: 3px solid var(--accent);
+  padding: 14px 16px; border-radius: 6px; margin: 16px 0;
+}
+.why b { color: var(--accent); }
+.tiers { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 16px 0; }
+@media (min-width: 520px) { .tiers { grid-template-columns: 1fr 1fr; } }
+.tier { background: var(--card); border: 1px solid var(--rule); border-radius: 6px; padding: 14px; min-width: 0; }
+.tier .n { font: 600 12px/1 var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.tier h3 { font: 600 18px/1.25 var(--display); margin: 6px 0; }
+.tier.high h3 { color: var(--warn); }
+.tier.low h3 { color: var(--accent); }
+.stats { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 16px 0; }
+.stat { border-top: 2px solid var(--fg); padding-top: 8px; }
+.stat .k { font: 500 12px/1.3 var(--mono); color: var(--muted); }
+.stat .v { font: 600 17px/1.35 var(--body); }
+footer { margin-top: 36px; border-top: 1px solid var(--rule); padding-top: 12px; font: 12px/1.5 var(--mono); color: var(--muted); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+
+<div class="kicker">Case study 3 · Business problem</div>
+<h1>Sort by consequence, not by author.</h1>
+<p class="dek">Low-risk changes merge on their own. High-risk ones wait for a person, and the workflow decides which is which.</p>
+
+<p><span class="lead">The problem, in one line.</span> Every pull request waited for a person, so the queue grew. Auto-merging everything would let a risky change land unseen.</p>
+<div class="why"><b>Why it matters.</b> A review queue that treats every change the same either slows everything or lets the dangerous change through. Sorting by consequence fixes both.</div>
+
+<h2>What we did</h2>
+<div class="tiers"><div class="tier tier low"><div class="n">Low risk</div><h3>Merges on its own</h3><p>Once every required check passes.</p></div><div class="tier tier high"><div class="n">High risk</div><h3>Waits for a person</h3><p>Migrations, access rules, deploy config, secrets, payments, lock files, or a change over 300 lines or 10 files.</p></div><div class="tier tier low"><div class="n">Labeller</div><h3>The workflow sets the label</h3><p>The author cannot set it, so a risky change cannot be talked down.</p></div></div>
+
+<h2>Rules that come with it</h2>
+<ul><li><span class="lead">No skipped checks.</span> A failing test gets fixed, never disabled to get green.</li><li><span class="lead">No automatic high-risk merges.</span> Ever.</li><li><span class="lead">Screens get walked.</span> A change that touches a screen opens as a draft until someone has used it on a device.</li></ul>
+
+<h2>The trade-off, stated plainly</h2>
+<ul><li>Low-risk changes reach main with no human look, so the release review has to cover them.</li><li>Size thresholds are blunt. A large generated change can be high risk on size alone. That is intended.</li><li>A path rule can miss a risk. The list is reviewed whenever something slips through.</li></ul>
+
+<div class="why"><b>Why it matters, again.</b> The review queue stops being one flat line. A person spends time where a mistake is expensive, and the rest moves at machine speed.</div>
+
+<h2>Where this transfers</h2>
+<ul><li>Payments operations, claims handling, content approvals, data pipelines.</li><li>Decision: sort by consequence, automate the bottom tier, and make the top tier impossible to self-certify.</li><li>Owner: the product lead sets the tiers. The workflow applies them.</li></ul>
+
+<footer>Visual version of case study 3 in the engineering playbook. Process only: no product code, customer data or internal metrics.</footer>
