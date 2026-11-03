@@ -16,6 +16,7 @@ Date reflected: 2 November 2026.
 | Team operations | Operating flow, roster, cycle-driven planning, release log template | Documents merged late October to early November 2026 |
 | Internal tools | A meeting room with agent-answered questions, backed by a task-tracker feed | Built and in use; deployment still being verified |
 | Cost control | Model routing table for routine versus data-heavy questions | Merged in early November 2026, checked by unit tests only |
+| Agent workflow | Verification skills tied to existing gates, a measured CI cost cut, and separate stacks for parallel agents | Written early November 2026; skills not yet run in a live session |
 
 ## 1. Delivery pipeline: risk-tiered merging
 
@@ -83,6 +84,14 @@ flowchart LR
 **Built.** A rule that sends routine questions to a smaller, cheaper model and sends questions with numbers or status to a larger one. Each call sets a read budget. The rule is written as a table in the policy.
 
 **Evidence.** Merged early November 2026. Checked by unit tests only, so live behaviour is still being verified.
+
+## 8. Agent workflow: skills, CI spend, and parallel work
+
+**Problem.** Process was being added faster than it could be checked.
+
+**Built.** Verification skills that point at existing gates rather than inventing new ones. Three narrow CI cuts, chosen from measured spend. Worktree scripts that give each agent its own local database stack.
+
+**Evidence.** Written early November 2026. The skills have not yet been run in a live session, and the parallel stacks have not been verified on a real machine. See [case study 5](case-studies/05-agent-workflow-skills-and-cost.md).
 
 ## Not shown here
 
