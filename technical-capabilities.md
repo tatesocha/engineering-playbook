@@ -22,7 +22,7 @@ Date reflected: 2 November 2026.
 
 **Problem.** Routine changes waited on a human, and the queue grew.
 
-**Built.** A workflow that reads each pull request's changed files and size, labels it low, medium or high risk. Low-risk changes auto-merge once required checks pass. Medium-risk changes (application code) are merged by an agent after the pre-cut sweep, and high-risk changes wait for review. The medium tier is in review and not live yet.
+**Built.** A workflow that reads each pull request's changed files and size, labels it low, medium or high risk. Low-risk changes auto-merge once required checks pass. Medium-risk changes (application code) are merged by an agent after the pre-cut sweep, and high-risk changes wait for review. The medium tier was added on 2026-11-03.
 
 ```mermaid
 flowchart LR

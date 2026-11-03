@@ -25,7 +25,7 @@ A workflow labels each pull request by risk from its changed files and size.
 - is larger than 300 lines or touches more than 10 files, or
 - comes from a fork.
 
-**Medium risk** (in review, not yet live) is a change that is not high risk but touches application code. An agent merges it after the pre-cut sweep, not automatically, so it gets a second look before it reaches the release cut.
+**Medium risk** (added 2026-11-03) is a change that is not high risk but touches application code. An agent merges it after the pre-cut sweep, not automatically, so it gets a second look before it reaches the release cut.
 
 The author does not set the risk label. The workflow does, so the label cannot be talked down.
 
