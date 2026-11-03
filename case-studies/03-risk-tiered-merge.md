@@ -60,7 +60,7 @@ flowchart TD
 ## Result
 
 <!-- Fill only with verified counts from the workflow runs. Do not estimate. -->
-- Pull requests labelled low and high, by month: _to be counted from workflow labels_
+- Pull requests labelled low, medium and high, by month: _to be counted from workflow labels_
 - High-risk changes that needed a human review and got one: _to be counted_
 
 ## What I would change
