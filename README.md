@@ -30,9 +30,11 @@ flowchart LR
   A[Scope: sprint plan] --> B[Work: PR or Linear item]
   B --> C{Risk tier}
   C -->|low| D[Auto-merge after required checks]
+  C -->|medium| M[Agent merges after the sweep]
   C -->|high| E[Human review]
   D --> F[Sprint close]
   E --> F
+  M --> F
   F --> G[Pre-cut sweep]
   G --> H{Go / no-go gate}
   H -->|go| I[Cut, release notes, post-cut walk]

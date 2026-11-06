@@ -16,7 +16,7 @@ Date reflected: 2 November 2026.
 | Owner | Task tracker label | One owner label per item | Set at creation | Who is accountable for the item |
 | Chunk | Task tracker label | Chunk 1, Chunk 2, Chunk 3 | Planning owner | Which block of the cycle the item belongs to |
 | Type | Pull request body line | bug, feature, chore | Author | Sets the type label |
-| Risk | Pull request label | low, high | Pipeline only | Decides auto-merge |
+| Risk | Pull request label | low, medium, high | Pipeline only | Decides who merges: automatic for low, an agent after the sweep for medium, a person for high |
 
 ## Rules
 
@@ -55,7 +55,7 @@ flowchart LR
 | Label | Values | Set by |
 |---|---|---|
 | `type: bug`, `type: feature`, `type: chore` | from the body line | pipeline |
-| `risk: low`, `risk: high` | from changed files and size | pipeline |
+| `risk: low`, `risk: medium`, `risk: high` | from changed files, size and app-code paths | pipeline |
 | Linked item ID in title and body | required | author |
 
 ## Not disclosed
