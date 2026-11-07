@@ -20,7 +20,7 @@ Date reflected: 7 November 2026.
 
 1. One pull request per outcome, under 400 changed lines. Larger work is split before the pull request is opened.
 2. The tracked item id is set before the pull request is opened, and it appears in the title or branch.
-3. A pull request that changes a screen opens ready for review. Its device walk runs after merge and is tracked (see [case study 3](case-studies/03-risk-tiered-merge.md)).
+3. A pull request is given a walk tier (1, 2, or 3) so the post-cut walk can list it. Walks run after merge and never hold a merge. The tiers and their rules are in [case study 1](case-studies/01-release-cut-policy.md#quality-before-and-after-a-release).
 
 ## Work in progress
 
