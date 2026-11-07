@@ -58,7 +58,7 @@ flowchart TD
 
 **After a release.** Every cut gets a dated walk record. Each row gets a written pass or fail, even when it passes. Silence is not a result. Any bug found after a cut is logged against that cut.
 
-**Walk tiers.** Each change in a cut is tiered when it is merged, and the post-cut walk checklist lists the tiers automatically.
+**Walk tiers.** Each change in a cut is tiered when it is merged. The post-cut walk checklist is still filled in by hand from those tiers.
 - **Tier 1, simulator walk:** any visible change on screen, and any flow that touches another person (borrow, ask, shared spaces). Stays open until walked.
 - **Tier 2, device walk after the cut:** anything the simulator cannot exercise, such as gestures, camera, push, and sign-in codes. Listed as cannot be simmed. Stays open until walked on a device.
 - **Tier 3, no walk:** copy-only, backend, feature-flagged-off, and documentation changes. Passing checks and a code read are enough.
