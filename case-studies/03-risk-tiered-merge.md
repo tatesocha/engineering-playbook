@@ -46,7 +46,7 @@ flowchart TD
 
 - Never skip, disable, or quarantine a test to get green.
 - Never merge a high-risk change automatically.
-- A pull request opens as a draft until it has been walked on a device if it changes a screen.
+- A pull request that changes a screen opens ready for review. Its device walk runs after merge and is tracked. A walk that fails becomes a bug item. Walks never hold a merge (see [team rules](../team-rules.md)).
 - Dependency bumps from automated tools are reviewed under the same tiers. Lock-file changes are high risk.
 
 ## Trade-offs
