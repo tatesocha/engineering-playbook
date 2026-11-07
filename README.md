@@ -21,6 +21,7 @@ This is a builder's log. I set up this process while learning it, working with A
 | [Case study 3: Risk-tiered auto-merge](case-studies/03-risk-tiered-merge.md) | You want to see how low-risk changes merge without a human and high-risk changes do not. |
 | [Case study 4: Meeting room agents and a read-only bridge](case-studies/04-meeting-room-agents-and-bridge.md) | You want to see how agents get live data safely, and how a deploy step is narrowed so agents can run it. |
 | [Case study 5: Agent workflow skills, CI spend, and parallel work](case-studies/05-agent-workflow-skills-and-cost.md) | You want to see how agent skills were tied to existing gates, how CI spend was cut, and how agents got separate stacks. |
+| [Bug lifecycle](bug-lifecycle.md) | You want to see how a bug goes from report to closed, and what proof closes it. |
 | [Technical capabilities](technical-capabilities.md) | You want a list of what was built, with diagrams. |
 
 ## How the pieces fit
