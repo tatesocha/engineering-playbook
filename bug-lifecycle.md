@@ -44,7 +44,8 @@ Intake, track, fix, validate, prove, close, then watch after the next cut.
 - Report results in two lists, never mixed:
   - **Walked:** the repro was run and the result was seen. Pass or fail.
   - **Cannot be simmed:** the step needs a real device, a real account, a purchase, push, or the camera. Name the reason and the owner who can run it. Never report these as verified.
-- Where the device walk happens, before or after merge, follows the risk tier in [case study 3](case-studies/03-risk-tiered-merge.md). Its result is recorded either way.
+- Give the fix a walk tier, using the same tiers as the post-cut walk (see [walk tiers](case-studies/01-release-cut-policy.md#quality-before-and-after-a-release)): Tier 1 for a visible or shared-flow fix, Tier 2 for anything only a device can show, Tier 3 for copy, backend, flag-off, or docs fixes.
+- The walk runs after merge and never holds it. Its result feeds the proof record in the next stage, and a Tier 1 or Tier 2 fix stays open until that walk is recorded.
 
 ## Prove
 
