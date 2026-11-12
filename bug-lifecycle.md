@@ -2,7 +2,7 @@
 
 How a bug moves from report to closed, and what proof closes it. Generic: no product names, ids, or team members.
 
-Date reflected: 7 November 2026.
+Date reflected: 12 November 2026.
 
 ## The stages
 
@@ -21,7 +21,7 @@ Intake, track, fix, validate, prove, close, then watch after the next cut.
 ## Intake
 
 1. Every bug becomes one tracked item before any work starts. Ideas and questions are not bugs.
-2. The item carries the `type: bug` label and one owner label (see [triage and tagging](triage-and-tagging.md)).
+2. The item carries the `type: bug` label, one owner label and an assignee (see [triage and tagging](triage-and-tagging.md)).
 3. A bug found during a walk is logged against that walk and the cut it was found in.
 4. A duplicate is linked to the original and closed as a duplicate. It is never fixed twice.
 
