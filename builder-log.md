@@ -23,6 +23,7 @@ Date reflected: 2 November 2026.
 - **I wrote rules before I had evidence.** The first cadence was "once per sprint." I changed it the same day, after thinking through what a walk would cover.
 - **Auto-merge widened the release surface.** Low-risk merges meant the release cut carried changes nobody had walked on a device. The fix was a rule about the cut, not a stricter merge rule.
 - **Agents shared one tracker account,** so the assignee field stopped meaning anything. Ownership moved to a label.
+- **Unassigned items slipped through anyway.** In November 2026 many items had no assignee, project or cycle, so every item is now assigned at creation as well as labelled. The label still says which agent owns it.
 - **Checklists were too long at first,** which meant they got skipped. I cut them down to the lines that caught real rework.
 
 ## What I learned
