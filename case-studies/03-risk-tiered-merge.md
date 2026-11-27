@@ -25,6 +25,8 @@ A workflow labels each pull request by risk from its changed files and size.
 - is larger than 300 lines or touches more than 10 files, or
 - comes from a fork.
 
+**Medium risk** (added 2026-11-03) is a change that is not high risk but touches application code. An agent merges it after the pre-cut sweep, not automatically, so it gets a second look before it reaches the release cut.
+
 The author does not set the risk label. The workflow does, so the label cannot be talked down.
 
 ## Flow
@@ -58,7 +60,7 @@ flowchart TD
 ## Result
 
 <!-- Fill only with verified counts from the workflow runs. Do not estimate. -->
-- Pull requests labelled low and high, by month: _to be counted from workflow labels_
+- Pull requests labelled low, medium and high, by month: _to be counted from workflow labels_
 - High-risk changes that needed a human review and got one: _to be counted_
 
 ## What I would change
